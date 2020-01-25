@@ -100,6 +100,18 @@ class Firebase {
   
   users = () => this.db.collection('users');
 
+   // *** Categories API ***
+
+  category = uid => this.db.doc(`categories/${uid}`);
+  
+  categories = () => this.db.collection('categories');
+
+     // *** Products API ***
+
+  product = uid => this.db.doc(`products/${uid}`);
+  
+  products = () => this.db.collection('products');
+
 }
 
 export default Firebase;

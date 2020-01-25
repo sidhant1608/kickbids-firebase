@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route , Link} from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { withAuthorization, withEmailVerification } from '../Session';
@@ -16,6 +16,14 @@ const AdminPage = () => (
       <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
       <Route exact path={ROUTES.ADMIN} component={UserList} />
     </Switch>
+
+
+    <p>
+    <Link to={ROUTES.CREATE_CATEGORY}>Create Category</Link>
+    </p>
+    <p>
+    <Link to={ROUTES.CREATE_PRODUCT}>Create Product</Link>
+    </p>
   </div>
 );
 
