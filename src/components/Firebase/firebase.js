@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -23,6 +24,7 @@ class Firebase {
     /* Firebase APIs */
 
     this.auth = app.auth();
+    this.storage = app.storage();
     this.db = app.firestore();
     const settings = {timestampsInSnapshots: true};
     this.db.settings(settings);

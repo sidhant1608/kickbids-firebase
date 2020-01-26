@@ -45,11 +45,13 @@ class AddCategoryBase extends Component {
     //       this.setState({ error });
     //     });
     event.preventDefault();
+
     var category = this.state.name;
     var cat = this.props.firebase.categories().doc();
     cat.set({
         name: category,
-        userId: this.props.authUser.uid,
+        userId: this.props.firebase.user(this.props.authUser.uid),
+        created: this.props.firebase.fieldValue.serverTimestamp()
       });
     this.setState({
         name: ''
@@ -62,25 +64,27 @@ class AddCategoryBase extends Component {
   
     render() {
       return (
-        <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-            <label className="text-muted">
-                Name
-            </label>
-            <input type="text" 
-            name='name'
-            className="form-control"
-            onChange={this.onChange}
-            value={this.state.name}
-            autoFocus
-            required/>
-        </div>
-        <div className="form-group">
-            <button className="btn btn-outline-primary">
-                Create Category
-            </button>
-        </div>
-    </form>
+        <div className="container">
+          <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+              <label className="text-muted">
+                  Name
+              </label>
+              <input type="text" 
+              name='name'
+              className="form-control"
+              onChange={this.onChange}
+              value={this.state.name}
+              autoFocus
+              required/>
+          </div>
+          <div className="form-group">
+              <button className="btn btn-outline-primary">
+                  Create Category
+              </button>
+          </div>
+      </form>
+      </div>
       );
     }
   }

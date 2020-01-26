@@ -55,6 +55,7 @@ class SignUpFormBase extends Component {
           username,
           email,
           roles,
+          created: this.props.firebase.fieldValue.serverTimestamp()
         },
         { merge: true },
         );
