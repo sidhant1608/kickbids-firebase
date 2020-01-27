@@ -44,7 +44,6 @@ class AddProductBase extends Component {
     }
 
     componentDidMount() {
-      console.log(this.props.firebase);
       this.setState({
         formData: new FormData()
       });

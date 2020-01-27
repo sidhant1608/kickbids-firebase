@@ -1,7 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import 'firebase/storage';
+import {fireuser} from "../API/auth";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -24,7 +24,6 @@ class Firebase {
     /* Firebase APIs */
 
     this.auth = app.auth();
-    this.storage = app.storage();
     this.db = app.firestore();
     const settings = {timestampsInSnapshots: true};
     this.db.settings(settings);
@@ -70,27 +69,59 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
       if (authUser) {
-        this.user(authUser.uid)
-          .get()
-          .then(snapshot => {
-            const dbUser = snapshot.data();
-
-            // default empty roles
-            if (!dbUser.roles) {
-              dbUser.roles = {};
+        fireuser(authUser.uid)
+        .then(data => {
+          if(data.error){
+              fallback();
+          } else {
+            if (data[0] === undefined) {
+              authUser = {
+                uid: authUser.uid,
+                idToken: authUser._lat,
+                email: authUser.email,
+                emailVerified: authUser.emailVerified,
+                roles:  {
+                  ADMIN: "NONE"
+                },
+                providerData: authUser.providerData
+              }
+              next(authUser);
             }
+            else {
+              authUser = {
+                uid: authUser.uid,
+                idToken: authUser._lat,
+                email: authUser.email,
+                emailVerified: authUser.emailVerified,
+                roles:  data[0].roles,
+                providerData: authUser.providerData
+              }
+              next(authUser);
+            }
+          }
+      });
+        // this.user(authUser.uid)
+        //   .get()
+        //   .then(snapshot => {
+        //     const dbUser = snapshot.data();
 
-            // merge auth and db user
-            authUser = {
-              uid: authUser.uid,
-              email: authUser.email,
-              emailVerified: authUser.emailVerified,
-              providerData: authUser.providerData,
-              ...dbUser,
-            };
+        //     // default empty roles
+        //     if (!dbUser.roles) {
+        //       dbUser.roles = {};
+        //     }
 
-            next(authUser);
-          });
+        //     // merge auth and db user
+        //     authUser = {
+        //       uid: authUser.uid,
+        //       email: authUser.email,
+        //       emailVerified: authUser.emailVerified,
+        //       providerData: authUser.providerData,
+        //       idToken: authUser._lat,
+        //       ...dbUser,
+        //     };
+        //     console.log(authUser);
+        //     next(authUser);
+        //   });
       } else {
         fallback();
       }

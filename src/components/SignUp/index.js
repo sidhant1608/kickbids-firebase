@@ -6,6 +6,8 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 
+import {firesignup} from "../API/auth";
+
 const SignUpPage = () => (
   <div>
     <h1>SignUp</h1>
@@ -46,19 +48,33 @@ class SignUpFormBase extends Component {
     if (isAdmin) {
       roles[ROLES.ADMIN] = ROLES.ADMIN;
     }
-
+    
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         // Create a user in your Firebase realtime database
-        return this.props.firebase.user(authUser.user.uid).set({
-          username,
-          email,
-          roles,
-          created: this.props.firebase.fieldValue.serverTimestamp()
-        },
-        { merge: true },
-        );
+        // return this.props.firebase.user(authUser.user.uid).set({
+        //   username,
+        //   email,
+        //   roles,
+        //   created: this.props.firebase.fieldValue.serverTimestamp()
+        // },
+        // { merge: true },
+        // );
+          console.log(authUser);
+          let name = username;
+          let email = authUser.user.email;
+          let phone = "9654349773";
+          let firebaseId = authUser.user.uid;
+          console.log({name, email, phone, firebaseId, roles});
+          firesignup({name, email, phone, firebaseId, roles})
+          .then(data => {
+            if(data.error){
+                console.log(data.error);
+            } else {
+              console.log(data);
+            }
+        });
       })
       .then(() => {
         return this.props.firebase.doSendEmailVerification();

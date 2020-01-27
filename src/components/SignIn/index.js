@@ -6,6 +6,10 @@ import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
+
+
+import {firesignup} from "../API/auth";
 
 const SignInPage = () => (
   <div>
@@ -105,17 +109,22 @@ class SignInGoogleBase extends Component {
       .doSignInWithGoogle()
       .then(socialAuthUser => {
         // Create a user in your Firebase Realtime Database too
-        return this.props.firebase.user(socialAuthUser.user.uid).set({
-          username: socialAuthUser.user.displayName,
-          email: socialAuthUser.user.email,
-          roles: {},
-        },
-        { merge: true },
-        );
-      })
-      .then(() => {
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.HOME);
+          let name = socialAuthUser.user.displayName;
+          let email = socialAuthUser.user.email;
+          let phone = "";
+          let firebaseId = socialAuthUser.user.uid;
+          let roles = {
+            [ROLES.ADMIN] : "NONE"
+          }
+          return firesignup({name, email, phone, firebaseId, roles})
+          .then(data => {
+            if(data.error){
+                var error = data.error;
+                this.setState({ error });
+            } else {
+              this.props.history.push(ROUTES.HOME);
+            }
+        });
       })
       .catch(error => {
         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
@@ -153,17 +162,22 @@ class SignInFacebookBase extends Component {
       .doSignInWithFacebook()
       .then(socialAuthUser => {
         // Create a user in your Firebase Realtime Database too
-        return this.props.firebase.user(socialAuthUser.user.uid).set({
-          username: socialAuthUser.additionalUserInfo.profile.name,
-          email: socialAuthUser.additionalUserInfo.profile.email,
-          roles: {},
-        },
-        { merge: true },
-        );
-      })
-      .then(() => {
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.HOME);
+          let name = socialAuthUser.user.displayName;
+          let email = socialAuthUser.user.email;
+          let phone = "";
+          let firebaseId = socialAuthUser.user.uid;
+          let roles = {
+            [ROLES.ADMIN] : "NONE"
+          }
+          return firesignup({name, email, phone, firebaseId, roles})
+          .then(data => {
+            if(data.error){
+                var error = data.error;
+                this.setState({ error });
+            } else {
+              this.props.history.push(ROUTES.HOME);
+            }
+        });
       })
       .catch(error => {
         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
@@ -175,6 +189,7 @@ class SignInFacebookBase extends Component {
 
     event.preventDefault();
   };
+
 
   render() {
     const { error } = this.state;
@@ -201,17 +216,22 @@ class SignInTwitterBase extends Component {
       .doSignInWithTwitter()
       .then(socialAuthUser => {
         // Create a user in your Firebase Realtime Database too
-        return this.props.firebase.user(socialAuthUser.user.uid).set({
-          username: socialAuthUser.additionalUserInfo.profile.name,
-          email: socialAuthUser.additionalUserInfo.profile.email,
-          roles: {},
-        },
-        { merge: true },
-        );
-      })
-      .then(() => {
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.HOME);
+          let name = socialAuthUser.user.displayName;
+          let email = socialAuthUser.user.email;
+          let phone = "";
+          let firebaseId = socialAuthUser.user.uid;
+          let roles = {
+            [ROLES.ADMIN] : "NONE"
+          }
+          return firesignup({name, email, phone, firebaseId, roles})
+          .then(data => {
+            if(data.error){
+                var error = data.error;
+                this.setState({ error });
+            } else {
+              this.props.history.push(ROUTES.HOME);
+            }
+        });
       })
       .catch(error => {
         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
