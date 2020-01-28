@@ -34,6 +34,7 @@ const AccountPage = () => (
     {authUser => (
       <div>
         <h1>Account: {authUser.email}</h1>
+        {console.log(authUser)}
         <PasswordForgetForm />
         <PasswordChangeForm />
         <LoginManagement authUser={authUser} />

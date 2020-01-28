@@ -8,6 +8,9 @@ import {
   } from '../Session';import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
 
+import {createCategory} from "../API/auth";
+
+
 
 const CreateCategory = () => {
     return (
@@ -32,30 +35,23 @@ class AddCategoryBase extends Component {
       };
     }
   
-    user = this.props.authUser;
     onSubmit = event => {
-    //   const { email } = this.state;
-  
-    //   this.props.firebase
-    //     .doPasswordReset(email)
-    //     .then(() => {
-    //       this.setState({ ...INITIAL_STATE });
-    //     })
-    //     .catch(error => {
-    //       this.setState({ error });
-    //     });
     event.preventDefault();
 
-    var category = this.state.name;
-    var cat = this.props.firebase.categories().doc();
-    cat.set({
-        name: category,
-        userId: this.props.firebase.user(this.props.authUser.uid),
-        created: this.props.firebase.fieldValue.serverTimestamp()
+    var name = this.state.name;
+    createCategory(this.props.authUser.idToken, {name})
+    .then(data => {
+      console.log(data);
+        if(data.error){
+            console.log(data.error);
+        } else {
+            console.log(data);
+            this.setState({
+              name: "",
+              success: true
+            });
+        }
       });
-    this.setState({
-        name: ''
-    });
     };
   
     onChange = event => {

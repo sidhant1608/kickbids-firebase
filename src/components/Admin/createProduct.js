@@ -72,7 +72,7 @@ class AddProductBase extends Component {
 
     var data = {
       name: this.state.name,
-      userId: this.props.firebase.user(this.props.authUser.uid),
+      fireuserId: this.props.authUser.uid,
       description: this.state.description,
       price: this.state.price,
       category: this.props.firebase.category(this.state.category),

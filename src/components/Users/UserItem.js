@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { withFirebase } from '../Firebase';
 
+import {fireuser} from "../API/auth";
+
 class UserItem extends Component {
   constructor(props) {
     super(props);
@@ -18,17 +20,16 @@ class UserItem extends Component {
       return;
     }
     this.setState({ loading: true });
-    this.unsubscribe = this.props.firebase
-      .user(this.props.match.params.id)
-      .onSnapshot(snapshot => {
-        this.setState({
-          user: snapshot.data(),
-          loading: false,
-        });
+    fireuser(this.props.match.params.id)
+    .then((user) => {
+      this.setState({
+        user,
+        loading: false
       });
-  }
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   onSendPasswordResetEmail = () => {
@@ -52,7 +53,7 @@ class UserItem extends Component {
               <strong>E-Mail:</strong> {user.email}
             </span>
             <span>
-              <strong>Username:</strong> {user.username}
+              <strong>Username:</strong> {user.name}
             </span>
             <span>
               <button

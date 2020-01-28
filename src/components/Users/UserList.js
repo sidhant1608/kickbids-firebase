@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+import {getFireusers} from "../API/auth";
+
 class UserList extends Component {
   constructor(props) {
     super(props);
@@ -16,23 +18,16 @@ class UserList extends Component {
 
   componentDidMount() {
     this.setState({ loading: true });
-    this.unsubscribe = this.props.firebase
-      .users()
-      .onSnapshot(snapshot => {
-        let users = [];
-        snapshot.forEach(doc =>
-          users.push({ ...doc.data(), uid: doc.id }),
-        );
-        this.setState({
-          users,
-          loading: false,
-        });
-      });
+    getFireusers(10)
+    .then((users) => {
+      this.setState({
+        users,
+        loading: false});
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
 
   render() {
     const { users, loading } = this.state;
@@ -43,20 +38,20 @@ class UserList extends Component {
         {loading && <div>Loading ...</div>}
         <ul>
           {users.map(user => (
-            <li key={user.uid}>
+            <li key={user.firebaseId}>
               <span>
-                <strong>ID:</strong> {user.uid}
+                <strong>ID:</strong> {user.firebaseId}
               </span>
               <span>
                 <strong>E-Mail:</strong> {user.email}
               </span>
               <span>
-                <strong>Username:</strong> {user.username}
+                <strong>Username:</strong> {user.name}
               </span>
               <span>
                 <Link
                   to={{
-                    pathname: `${ROUTES.ADMIN}/${user.uid}`,
+                    pathname: `${ROUTES.ADMIN}/${user.firebaseId}`,
                     state: { user },
                   }}
                 >
