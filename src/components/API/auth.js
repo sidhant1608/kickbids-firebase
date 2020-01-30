@@ -108,3 +108,20 @@ export const createCategory = (idToken, category) => {
         console.log(error);
     })
 };
+
+export const createProduct = (idToken,  product) => {
+    return fetch(`${API}/product/create`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            "id-token": `${idToken}`
+        },
+        body: product
+    })
+    .then(response => {
+        return response.json()
+    })
+    .catch(error => {
+        console.log(error);
+    })
+};

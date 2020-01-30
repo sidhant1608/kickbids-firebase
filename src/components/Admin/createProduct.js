@@ -7,6 +7,9 @@ import {
   } from '../Session';import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
 
+import {getCategories} from "../API/category";
+import {createProduct} from "../API/auth";
+
 
 
 const CreateProduct = () => {
@@ -28,6 +31,10 @@ const INITIAL_STATE = {
   categories: [],
   category: '',
   photo: '',
+  photofront: '',
+  photoback: '',
+  photoleft: '',
+  photobottom: '',
   error: false,
   success: false,
   loading: false,
@@ -44,48 +51,33 @@ class AddProductBase extends Component {
     }
 
     componentDidMount() {
+
       this.setState({
-        formData: new FormData()
+        formData: new FormData(),
+        loading: true
       });
-
-      this.setState({ loading: true });
-      this.unsubscribe = this.props.firebase
-        .categories()
-        .onSnapshot(snapshot => {
-          let categories = [];
-          snapshot.forEach(doc =>
-            categories.push({ ...doc.data(), uid: doc.id }),
-          );
-          this.setState({
-            categories: categories,
-            loading: false,
-          });
-        });
+      getCategories().then(data => {
+        if(data.error){
+            this.setState({error: true});
+        } else {
+            this.setState({categories: data,
+              loading: false,});
+        }
+      });
     }
 
-    componentWillUnmount() {
-      this.unsubscribe();
-    }
 
     onSubmit = event => {
     event.preventDefault();
 
-    var data = {
-      name: this.state.name,
-      fireuserId: this.props.authUser.uid,
-      description: this.state.description,
-      price: this.state.price,
-      category: this.props.firebase.category(this.state.category),
-      created: this.props.firebase.fieldValue.serverTimestamp()
-    }
-    var product = this.props.firebase.products().doc();
-    // var productRef = storageRef.child(`images/products//mountains.jpg`);
-    
-    // product.set(data)
-    // .then(() => {
-    //   console.log("Product Added");
-    // });
-    this.setState(INITIAL_STATE);
+    createProduct(this.props.authUser.idToken, this.state.formData)
+    .then(product => {
+      console.log(product);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    // this.setState(INITIAL_STATE);
 
   };
 
@@ -98,7 +90,6 @@ class AddProductBase extends Component {
           formData.set(name, value);
       }
       else {
-        
         this.setState({ [name]: event.target.value });
         formData.set(name, event.target.value)
       }
@@ -157,17 +148,53 @@ class AddProductBase extends Component {
             className="form-control">
             <option>Select A Category</option>
             {categories && categories.map((category, i) =>(
-                <option key={i} value={category.uid}>{category.name}</option>
+                <option key={i} value={category._id}>{category.name}</option>
             ))}
             </select>
           </div>
           <div className="form-group">
-                    <label className="text-muted mr-2">Choose Photo</label>
+                    <label className="text-muted mr-2">Choose Right Photo</label>
                     <label className="btn btn-outline-secondary">
                     <input onChange={this.onChange}
                     type="file" 
                     name="photo" 
                     accept="image/*" multiple></input>
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label className="text-muted mr-2">Choose Left Photo</label>
+                    <label className="btn btn-outline-secondary">
+                    <input onChange={this.onChange}
+                    type="file" 
+                    name="photoleft" 
+                    accept="image/*"></input>
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label className="text-muted mr-2">Choose Front Photo</label>
+                    <label className="btn btn-outline-secondary">
+                    <input onChange={this.onChange}
+                    type="file" 
+                    name="photofront" 
+                    accept="image/*"></input>
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label className="text-muted mr-2">Choose Back Photo</label>
+                    <label className="btn btn-outline-secondary">
+                    <input onChange={this.onChange}
+                    type="file" 
+                    name="photoback" 
+                    accept="image/*"></input>
+                    </label>
+                </div>
+                <div className="form-group">
+                    <label className="text-muted mr-2">Choose Bottom Photo</label>
+                    <label className="btn btn-outline-secondary">
+                    <input onChange={this.onChange}
+                    type="file" 
+                    name="photobottom" 
+                    accept="image/*"></input>
                     </label>
                 </div>
           <div className="form-group">

@@ -6,7 +6,11 @@ import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 
+import "./navigation.css";
+
 const Navigation = () => (
+
+  <div className="kickbids-nav">
   <AuthUserContext.Consumer>
     {authUser =>
       authUser ? (
@@ -16,9 +20,11 @@ const Navigation = () => (
       )
     }
   </AuthUserContext.Consumer>
+  </div>
 );
 
 const NavigationAuth = ({ authUser }) => (
+  <>
   <ul>
     <li>
       <Link to={ROUTES.LANDING}>Landing</Link>
@@ -38,6 +44,7 @@ const NavigationAuth = ({ authUser }) => (
       <SignOutButton />
     </li>
   </ul>
+  </>
 );
 
 const NavigationNonAuth = () => (
