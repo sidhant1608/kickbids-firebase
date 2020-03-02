@@ -8,3 +8,4 @@ export const ADMIN = '/admin';
 export const ADMIN_DETAILS = '/admin/:id';
 export const CREATE_PRODUCT = '/createProduct'
 export const CREATE_CATEGORY = '/createCategory'
+export const PRODUCT = "/product/:productId"

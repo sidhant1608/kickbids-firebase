@@ -1,0 +1,734 @@
+
+@media (max-width: 768px){
+    .product-main{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    
+    .product-photos-block{
+        width: 100%;
+        background: white;
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .product-photos-block .product-photos-selector{
+        height: 125px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .product-photos-selector .product-photos-selector-photo{
+        margin: 10px;
+        max-height: 100%;
+    }
+
+    .product-photos-selector-photo img{
+        display: block;
+        width: 80px;
+    }
+
+    .product-photo-main-image{
+        flex: 1;
+        max-width: 100%;
+        max-height: 400px;
+    }   
+
+    .product-main .product-name-block{
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    
+    .product-name-block .product-name-block-title{
+        font-size: 18px;
+    }
+
+    .product-name-block .product-name-block-category{
+        font-size: 14px;
+    }
+
+    .product-details-block{
+        width: 100%;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-details-block .product-details-block-description{
+        width: 100%;
+        font-size: 14px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        word-break: break-all;
+    }
+
+    .product-details-block .product-details-block-main{
+        width: 100%;
+        flex: 7;
+    }
+
+    .product-details-block .product-details-block-details{
+        width: 100%;
+        margin-top: 10px;
+        flex: 2;
+    }
+
+    .product-details-block-details .product-details-block-details-price{
+        width: 100%;
+        font-size: 14px;
+    }
+
+
+    .product-details-block-details .product-details-block-details-created{
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .product-details-block-main .bid-container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .bid-container .bid-text{
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .bid-container .bid-options-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+    .bid-options-container-option{
+        width: 40%;
+        height: 60%;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .options-buysell{
+        font-size: 18px;
+    }
+    .options-option{
+        font-size: 24px;
+    }
+
+    .bid-container .bid-container-buysell-info{
+        width: 100%;
+        font-size: 18px;
+        box-sizing: border-box;
+        padding: 5px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .info-block{
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 8vw;
+    }
+
+    .info-block label{
+        height: 100%;
+        font-size: 3.3vw;
+        margin: 0 10px;
+    }
+
+    .bid-container .bid-container-buysell-error{
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        background: #ef5350;
+    }
+
+    .bid-container .bid-container-buysell{
+        width: 100%;
+        flex: 1;
+        padding: 5px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .bid-container-buysell .bid-container-buysell-put{
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .bid-container-buysell-put .bid-container-buysell-put-button{
+        flex: 1;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px 0;
+        font-size: 18px;
+        box-sizing: border-box;
+        background: #FDF5E6;
+        max-height: 40%;
+    }
+
+    .bid-container-buysell-put .bid-container-buysell-put-sellnow{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        background: #FDF5E6;
+    }
+
+    .filds{
+        flex: 1;
+        max-height: 40px;
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        padding: 5px 0;
+        box-sizing: border-box;
+    }
+    .filds input{
+        width: 100%;
+        height: 100%;
+        border: 0px;
+        border-bottom: 1px solid #9e9e9e;
+        transition: border-bottom, box-shadow .25s ease-in-out;
+        max-width: 100%;
+        padding: 0;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    .filds label{
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: text;
+        color: #546E7A;
+        transform: translateY(18px);
+        transition: transform .25s ease-in-out;
+        transform-origin: 0% 100%;
+        font-size: 14px;
+        line-height: 10px;
+        padding: 0 5px;
+    }
+    input:focus{
+        border-bottom: 1px solid #FDF5E6;
+        box-shadow: 0 1px 0 0 #FDF5E6;
+        outline: 1px solid transparent;
+        font-size: 20px;
+    }
+        input:focus + label{
+        transform: translateY(-14px) scale(.8);
+    }
+    input::-webkit-input-placeholder,
+    input::-moz-input-placeholder{
+        color: transparent;
+    }
+    input::placeholder{
+        color: transparent;
+    }
+    input:not(:placeholder-shown){
+        border-bottom: 1px solid #9e9e9e;
+    }
+    input:not(:placeholder-shown) + label{
+        transform: translateY(-14px) scale(.8);
+    }
+
+}
+
+
+
+@media (min-width: 769px){
+
+    .product-main{
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        position: relative;
+    }
+    
+    .product-main .product-photos-block{
+        width: 60%;
+        height: 100%;
+        display: flex;
+        padding: 10px;
+        box-sizing: border-box;
+        top: 0;
+        left: 0;
+        position: absolute;
+    }
+
+    .product-photos-block .product-photos-selector{
+        height: 100%;
+        width: 17%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    .product-photos-selector .product-photos-selector-photo{
+        width: 100%;
+        height: 100px;
+        cursor: pointer;
+    }
+
+    .product-photos-selector-photo img{
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        display: block;
+    }
+
+    .product-photo-main-image{
+        flex: 1 1 85%;
+        max-width: 83%;
+        max-height: 100%;
+        box-sizing: border-box;
+    }   
+
+    .product-main .product-name-block{
+        width: 40%;
+        height: 10%;
+        top: 0;
+        left: 60%;
+        position: absolute;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-name-block .product-name-block-title{
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    .product-name-block .product-name-block-category{
+        font-size: 20px;
+        font-weight: 300; 
+    }
+
+    .product-details-block{
+        width: 40%;
+        height: 90%;
+        top: 10%;
+        left: 60%;
+        position: absolute;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-details-block .product-details-block-description{
+        width: 100%;
+        font-size: 14px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        word-break: break-all;
+    }
+
+    /* .product-details-block .product-details-block-size{
+        width: 100%;
+        margin-bottom: 5px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product-details-block-size label{
+        flex: 2;
+        max-width: 30%;
+        margin-right: 20px;
+    }
+
+    .product-details-block-size select{
+        flex: 1;
+        max-width: 10%;
+    } */
+
+    .product-details-block .product-details-block-main{
+        width: 100%;
+        flex: 7;
+    }
+
+    .product-details-block .product-details-block-details{
+        width: 100%;
+        margin-top: 10px;
+        flex: 2;
+    }
+
+    .product-details-block-details .product-details-block-details-price{
+        width: 100%;
+        font-size: 14px;
+    }
+
+
+    .product-details-block-details .product-details-block-details-created{
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .product-details-block-main .bid-container{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bid-container .bid-text{
+        font-size: 20px;
+    }
+
+    .bid-container .bid-options-container{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .bid-options-container .bid-options-container-option{
+        width: 50%;
+        height: 40%;
+        text-align: center;
+        margin: 20px;
+        box-shadow: 1px 0 7px rgba(0,0,0,0.5);          
+        display: flex;      
+        flex-direction: column; 
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .options-buysell{
+        flex: 1;
+        border-bottom: 1px solid black;
+        line-height: 28px;
+        font-size: 14px;
+    }
+
+    .options-option{
+        flex: 2;
+        line-height: 50px;
+        font-size: 25px;
+    }
+
+    .bid-container .bid-container-buysell-info{
+        width: 100%;
+        font-size: 18px;
+        box-sizing: border-box;
+        padding: 5px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .info-block{
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 2.6vw;
+    }
+
+    .info-block label{
+        height: 100%;
+        font-size: 1.3vw;
+        margin: 0 10px;
+    }
+
+    .bid-container .bid-container-buysell{
+        max-height: 40%;
+        width: 100%;
+        flex: 1;
+        padding: 5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+    }
+
+    .bid-container-buysell-error{
+        max-height: 10%;
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ef5350;
+    }
+
+    .bid-container-buysell .bid-container-buysell-put{
+        width: 100%;
+        height: 40%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 3% 0;
+    }
+
+    .filds{
+        flex: 1;
+        height: 80%;
+        display: inline-block;
+        position: relative;
+        max-width: 40%;
+    }
+    .filds input{
+        width: 100%;
+        height: 100%;
+        border: 0px;
+        border-bottom: 1px solid #9e9e9e;
+        transition: border-bottom, box-shadow .25s ease-in-out;
+        max-width: 100%;
+        padding: 0;
+        border-radius: 4px;
+        font-size: 20px;
+    }
+    .filds label{
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: text;
+        color: #546E7A;
+        transform: translateY(18px);
+        transition: transform .25s ease-in-out;
+        transform-origin: 0% 100%;
+        font-size: 20px;
+        line-height: 10px;
+        padding: 0 5px;
+    }
+    input:focus{
+        border-bottom: 1px solid #FDF5E6;
+        box-shadow: 0 1px 0 0 #FDF5E6;
+        outline: 1px solid transparent;
+        font-size: 20px;
+    }
+        input:focus + label{
+        transform: translateY(-14px) scale(.8);
+    }
+    input::-webkit-input-placeholder,
+    input::-moz-input-placeholder{
+        color: transparent;
+    }
+    input::placeholder{
+        color: transparent;
+    }
+    input:not(:placeholder-shown){
+        border-bottom: 1px solid #9e9e9e;
+    }
+    input:not(:placeholder-shown) + label{
+        transform: translateY(-14px) scale(.8);
+    }
+
+    .bid-container-buysell-put .bid-container-buysell-put-button{
+        flex: 1;
+        max-width: 40%;
+        height: 80%;
+        font-size: 20px;
+        /* background: #AED581; */
+        background: #FDF5E6;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .bid-container-buysell-put-sellnow{
+        width: 50%;
+        height: 100%;
+        /* background: #009688; */
+        background: #FDF5E6;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+}
+
+.new{
+    /* background: rgba(255, 0, 0, 0.3); */
+    background: #FDF5E6;
+}
+
+.old{
+    /* background: rgba(0,0,255,0.3); */
+    background: #FDF5E6;
+}
+
+
+
+
+
+
+
+
+
+
+
+.product-details-block-size {
+    font-family:
+      'Roboto','Helvetica','Arial',sans-serif;
+      position: relative;
+      width: 60%;
+    border:1px solid black;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+  }
+  
+  .select-text {
+      position: relative;
+      font-family: inherit;
+      background-color: transparent;
+      width: 100%;
+      padding: 10px 10px 10px 10px;
+      font-size: 14px;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0, 0.12);
+  }
+  
+  /* Remove focus */
+  .select-text:focus {
+      outline: none;
+      border-bottom: 1px solid rgba(0,0,0, 0);
+  }
+  
+      /* Use custom arrow */
+  .product-details-block-size .select-text {
+      appearance: none;
+      -webkit-appearance:none
+  }
+  
+  .product-details-block-size:after {
+      position: absolute;
+      top: 18px;
+      right: 10px;
+      /* Styling the down arrow */
+      width: 0;
+      height: 0;
+      padding: 0;
+      content: '';
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid rgba(0, 0, 0, 0.12);
+      pointer-events: none;
+  }
+  
+  
+  /* LABEL ======================================= */
+  .select-label {
+      color: rgba(0,0,0, 0.26);
+      font-size: 18px;
+      font-weight: normal;
+      position: absolute;
+      pointer-events: none;
+      left: 10px;
+      top: 10px;
+      transition: 0.2s ease all;
+  }
+  
+  /* active state */
+  .select-text:focus ~ .select-label, .select-text:valid ~ .select-label {
+      color: #212121;
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+      top: -9px;
+      transition: 0.2s ease all;
+      font-size: 14px;
+  }
+  
+  /* BOTTOM BARS ================================= */
+  .select-bar {
+      position: relative;
+      display: block;
+      width: 100%;
+  }
+  
+  .select-bar:before, .select-bar:after {
+      content: '';
+      height: 2px;
+      width: 0;
+      bottom: 1px;
+      position: absolute;
+      background: #212121;
+      transition: 0.2s ease all;
+    
+  }
+  
+  .select-bar:before {
+      left: 50%;
+  }
+  
+  .select-bar:after {
+      right: 50%;
+  }
+  
+  /* active state */
+  .select-text:focus ~ .select-bar:before, .select-text:focus ~ .select-bar:after {
+      width: 50%;
+  }
+  
+  /* HIGHLIGHTER ================================== */
+  .select-highlight {
+      position: absolute;
+      height: 60%;
+      width: 100px;
+      top: 25%;
+      left: 0;
+      pointer-events: none;
+      opacity: 0.5;
+  }
+
+
+
+
+
+

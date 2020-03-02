@@ -1,0 +1,13 @@
+import React from 'react';
+
+const ToggleButtom = props  => {
+    return (
+        <button className="toggle-button" onClick={props.click}>
+            <div className="toggle-button-line" />
+            <div className="toggle-button-line"/>
+            <div className="toggle-button-line"/>
+        </button>
+    )
+}
+
+export default ToggleButtom;
