@@ -1,19 +1,19 @@
+import axios from 'axios';
+
 var API = "http://localhost:8000/api";
+
 
 //----------------------- FIREBASE API's ------------------------------
 
 export const firesignup = user => {
-    console.log(`${API}/firesignup`);
-    return fetch(`${API}/firesignup`, {
-        method: 'POST',
+    return axios.post(`${API}/firesignup`, JSON.stringify(user), {
         headers: {
             Accept: 'application/json',
             "Content-Type": 'application/json'
-        },
-        body: JSON.stringify(user)
+        }
     })
     .then(response => {
-        return response.json()
+        return response.data;
     })
     .catch(error => {
         console.log(error);
@@ -22,11 +22,9 @@ export const firesignup = user => {
 
 
 export const fireuser = id => {
-    return fetch(`${API}/fireuser/${id}`, {
-        method: 'GET'
-    })
+    return axios.get(`${API}/fireuser/${id}`)
     .then(response => {
-        return response.json()
+        return response.data;
     })
     .catch(error => {
         console.log(error);
@@ -44,7 +42,7 @@ export const fireuser = id => {
 //         body: JSON.stringify(user)
 //     })
 //     .then(response => {
-//         return response.json()
+//         return response.data;
 //     })
 //     .catch(error => {
 //         console.log(error);
@@ -53,21 +51,17 @@ export const fireuser = id => {
 
 
 export const getFireusers = (limit) => {
-    return fetch(`${API}/fireusers?limit=10`, {
-        method: "GET"
+    return axios.get(`${API}/fireusers?limit=10`)
+    .then(response => {
+        return response.data;;
     })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
+    .catch(err => console.log(err));
 };
 
 export const getCategories = () => {
-    return fetch(`${API}/categories`,{
-        method: "GET"
-    })
+    return axios.get(`${API}/categories`)
     .then(response => {
-        return response.json();
+        return response.data;;
     })
     .catch(err => console.log(err));
 };
@@ -92,17 +86,15 @@ export const getCategories = () => {
 // }
 
 export const createCategory = (idToken, category) => {
-    return fetch(`${API}/category/create`, {
-        method: 'POST',
+    return axios.post(`${API}/category/create`, JSON.stringify(category, {
         headers: {
             Accept: 'application/json',
             "Content-Type": 'application/json',
             "id-token": `${idToken}`
-        },
-        body: JSON.stringify(category)
-    })
+        }
+    }))
     .then(response => {
-        return response.json()
+        return response.data;
     })
     .catch(error => {
         console.log(error);
@@ -110,16 +102,15 @@ export const createCategory = (idToken, category) => {
 };
 
 export const createProduct = (idToken,  product) => {
-    return fetch(`${API}/product/create`, {
-        method: 'POST',
+
+    return axios.post(`${API}/product/create`, product, {
         headers: {
             Accept: 'application/json',
             "id-token": `${idToken}`
-        },
-        body: product
+        }
     })
     .then(response => {
-        return response.json()
+        return response.data;
     })
     .catch(error => {
         console.log(error);

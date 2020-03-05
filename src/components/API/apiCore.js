@@ -1,23 +1,23 @@
 import queryString from 'query-string';
+import axios from 'axios';
+
 
 var API = "http://localhost:8000/api";
 
 export const getProducts = (sortBy) => {
-    return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
-        method: "GET"
+    return axios
+    .get(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`)
+    .then(response => {
+        return response.data;
     })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
+    .catch(err => console.log(err));
 };
 
 export const getCategories = () => {
-    return fetch(`${API}/categories`,{
-        method: "GET"
-    })
+    return axios
+    .get(`${API}/categories`)
     .then(response => {
-        return response.json();
+        return response.data;
     })
     .catch(err => console.log(err));
 };
@@ -26,16 +26,15 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
     const data = {
         limit, skip, filters
     };
-    return fetch(`${API}/products/by/search`, {
-        method: 'POST',
+    return axios
+    .post(`${API}/products/by/search`, data, {
         headers: {
             Accept: 'application/json',
             "Content-Type": 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        return response.json()
+        }
+      })
+      .then(response => {
+        return response.data
     })
     .catch(error => {
         console.log(error);
@@ -44,47 +43,39 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
 
 export const list = params => {
     const query = queryString.stringify(params);
-    return fetch(`${API}/products/search?${query}`, {
-        method: "GET"
+    return axios.get(`${API}/products/search?${query}`)
+    .then(response => {
+        return response.data;
     })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
+    .catch(err => console.log(err));
 };
 
 export const read = productId => {
-    return fetch(`${API}/product/${productId}`,{
-        method: "GET"
-    })
+
+    return axios.get(`${API}/product/${productId}`)
     .then(response => {
-        return response.json();
+        return response.data;
     })
     .catch(err => console.log(err));
 };
 
 export const listRelated = (productId) => {
-    return fetch(`${API}/products/related/${productId}`,{
-        method: "GET"
-    })
+
+    return axios.get(`${API}/products/related/${productId}`)
     .then(response => {
-        return response.json();
+        return response.data;
     })
     .catch(err => console.log(err));
 };
 
 export const createOrder = (data, user, token) => {
-    console.log(JSON.stringify(data));
-    return fetch(`${API}/razorpay/order/${user._id}`, {
-        method: 'POST',
+    return axios.post(`${API}/razorpay/order/${user._id}`, JSON.stringify(data),{        
         headers: {
-            "Content-Type": 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(data)
-    })
+        "Content-Type": 'application/json',
+        Authorization: `Bearer ${token}`
+    }})
     .then(response => {
-        return response.json()
+        return response.data
     })
     .catch(error => {
         console.log(error);
@@ -92,16 +83,14 @@ export const createOrder = (data, user, token) => {
 };
 
 export const submitOrder = (data, user, token) => {
-    return fetch(`${API}/razorpay/order/success/${user._id}`, {
-        method: 'POST',
+    return axios.post(`${API}/razorpay/order/success/${user._id}`, JSON.stringify(data), {
         headers: {
             "Content-Type": 'application/json',
             Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(data)
+        }
     })
     .then(response => {
-        return response.json()
+        return response.data
     })
     .catch(error => {
         console.log(error);
@@ -109,24 +98,30 @@ export const submitOrder = (data, user, token) => {
 };
 
 export const getOrders = (productId) => {
-    return fetch(`${API}/orders/product/${productId}`,{
-        method: 'GET'
-    }).then(response => {
-        return response.json();
+    return axios.get(`${API}/orders/product/${productId}`).then(response => {
+        return response.data;
     }).catch(error => {
         console.log(error);
     });
 };
 
 export const getBids = (productId) => {
-    return fetch(`${API}/bids/${productId}`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": 'application/json'
-        }
-    })
+    // return fetch(`${API}/bids/${productId}`, {
+    //     method: 'GET',
+    //     headers: {
+    //         "Content-Type": 'application/json'
+    //     }
+    // })
+    // .then(response => {
+    //     return response.data
+    // })
+    // .catch(error => {
+    //     console.log(error);
+    // })
+
+    return axios.get(`${API}/bids/${productId}`)
     .then(response => {
-        return response.json()
+        return response.data
     })
     .catch(error => {
         console.log(error);
@@ -134,16 +129,14 @@ export const getBids = (productId) => {
 };
 
 export const createSell = (authUser, productId, order) => {
-    return fetch(`${API}/orders/create/${productId}`, {
-        method: 'POST',
+    return axios.post(`${API}/orders/create/${productId}`, order, {
         headers: {
             Accept: 'application/json',
             "id-token": `${authUser.idToken}`
-        },
-        body: order
+        }
     })
     .then(response => {
-        return response.json()
+        return response.data
     })
     .catch(error => {
         console.log(error);
@@ -151,38 +144,21 @@ export const createSell = (authUser, productId, order) => {
 };
 
 export const getOrder = (orderId) => {
-    return fetch(`${API}/orders/${orderId}`,{
-        method: 'GET'
-    }).then(response => {
-        return response.json();
+    return axios.get(`${API}/orders/${orderId}`).then(response => {
+        return response.data;
     }).catch(error => {
         console.log(error);
     });
 }
 
-export const placeBid = (userId, token, orderId, form) => {
-    return fetch(`${API}/bids/${userId}/${orderId}`, {
-        method: 'POST',
+export const placeBid = (idToken, bid, productId) => {
+    return axios.post(`${API}/bids/create`, bid, {
         headers: {
-            Authorization: `Bearer ${token}`
-        },
-        body: form
-    })
-    .then(response => {
-        return fetch(`${API}/orders/${orderId}/${userId}`, {
-            method: 'PUT',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${token}`
-            },
-            body: form
-        })
-        .then(response => {
-            return response.json()
-        })
-        .catch(error => {
-            console.log(error);
-        })
+            "Content-Type": 'application/json',
+            "id-token": `${idToken}`
+        }
+    }).then(response => {
+        return response.data;
     })
     .catch(error => {
         console.log(error);

@@ -130,7 +130,7 @@ const Product = (props) => {
         }
       },[selectedSize])
 
-    console.log(product, orders, bids, selectedSize, selectedSizeBids, selectedSizeOrders);
+    // console.log(product, orders, bids, selectedSize, selectedSizeBids, selectedSizeOrders);
 
     const showProductImage = (product) => {
         if(product._id !== undefined){
