@@ -86,13 +86,13 @@ export const getCategories = () => {
 // }
 
 export const createCategory = (idToken, category) => {
-    return axios.post(`${API}/category/create`, JSON.stringify(category, {
+    return axios.post(`${API}/category/create`, JSON.stringify(category), {
         headers: {
             Accept: 'application/json',
             "Content-Type": 'application/json',
             "id-token": `${idToken}`
         }
-    }))
+    })
     .then(response => {
         return response.data;
     })

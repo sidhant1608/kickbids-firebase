@@ -70,6 +70,7 @@ class AddProductBase extends Component {
     onSubmit = event => {
     event.preventDefault();
 
+    console.log(this.state.photo, this.state.photoback, this.state.photoleft, this.state.photofront);
     createProduct(this.props.authUser.idToken, this.state.formData)
     .then(product => {
       console.log(product);
