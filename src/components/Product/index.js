@@ -17,7 +17,7 @@ const Product = (props) => {
 
     const [product, setProduct] = useState({});
     const [error, setError] = useState(false);
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState("photo");
     const [category, setCategory] = useState({})
     const [status, setStatus] = useState("basic");
     const [selectedSize, setSelectedSize] = useState(0);
@@ -30,6 +30,9 @@ const Product = (props) => {
     const [bids, setBids] = useState([])
     const [selectedSizeOrders, setSelectedSizeOrders] = useState([]);
     const [selectedSizeBids, setSelectedSizeBids] = useState([]); 
+
+
+    console.log(selected);
 
     const [firstFlag, setFirstFlag] = useState(true);
 
@@ -135,7 +138,7 @@ const Product = (props) => {
     const showProductImage = (product) => {
         if(product._id !== undefined){
             return (
-                <img src={`${API}/product/${PHOTOS[selected]}/${product._id}`} className="product-photo-main-image"/>
+                <img src={product[[selected]]} className="product-photo-main-image"/>
             )
         }
     }
@@ -329,13 +332,13 @@ const Selector = (props) => {
     const showSelectorImage = (url,product) => {
         if(product._id !== undefined){
             return (
-                <img src={`${API}/product/${url}/${product._id}`}/>
+                <img src={props.product[props.url]}/>
             )
         }
     }
 
     const handleClick = () => {
-        props.handleSelected(props.data);
+        props.handleSelected(props.url);
     }
     return (
         <div className="product-photos-selector-photo" onClick={handleClick}>

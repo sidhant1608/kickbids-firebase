@@ -7,12 +7,13 @@ import "./card.css";
 const Card = ({
     product
   }) => {
+    console.log(product);
     return (
         <div className="card-container">
             <div className="card-container-body">
                 <Link to={`/product/${product._id}`}>
                     <div className="image-container">
-                        <img src={`${API}/product/photo/${product._id}`} 
+                        <img src={product.photo} 
                         alt={product.name}
                         style={
                             {
@@ -22,9 +23,9 @@ const Card = ({
                         }></img>
                     </div>
                     <div className="text-container">
-                        <span className="product-name">
+                        <div className="product-name">
                             {product.name}
-                        </span>
+                        </div>
                     </div>
                 </Link>
             </div>

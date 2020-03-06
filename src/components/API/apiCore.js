@@ -165,28 +165,3 @@ export const placeBid = (idToken, bid, productId) => {
     })
 };
 
-
-const fileName = req.body.fileName;
-const fileType = req.body.fileType;
-const productId = req.product._id;
-const angle = req.body.angle;
-
-
-export const uploadPhoto = (idToken, angle, fileName, fileType, productId) => {
-    const data = {
-        angle: angle,
-        fileName: fileName, 
-        fileType: fileType
-    }
-    return axios.post(`${API}/s3/fetch-link/${productId}`, data, {
-        headers: {
-            "Content-Type": 'application/json',
-            "id-token": `${idToken}`
-        }
-    }).then(response => {
-        return response.data;
-    })
-    .catch(error => {
-        console.log(error);
-    })
-}

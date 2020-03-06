@@ -8,8 +8,7 @@ import {
 import { withFirebase } from '../Firebase';
 
 import {getCategories} from "../API/category";
-import {createProduct} from "../API/auth";
-
+import {createProduct, getUploadLink, uploadFile} from "../API/auth";
 
 
 const CreateProduct = () => {
@@ -81,14 +80,28 @@ class AddProductBase extends Component {
     // this.setState(INITIAL_STATE);
 
   };
-
     onChange = event => {
       var name = event.target.name;
       var formData = this.state.formData;
       if ( name === 'photo' || name === 'photoback' || name === 'photofront' || name === 'photoleft' || name === 'photobottom'){
           const value = event.target.files[0];
-          this.setState({ [event.target.name]: value });
-          formData.set(name, value);
+          let fileParts = event.target.files[0].name.split('.');
+          let fileName = fileParts[0];
+          let fileType = fileParts[1];
+          getUploadLink(this.props.authUser.idToken, name, fileName, fileType, name)
+          .then(res => {
+            var returnData = res.data.returnData;
+            var signedRequest = returnData.signedRequest;
+            var url = returnData.url;
+            this.setState({
+              [name]: url
+            })
+            formData.set(name, url);
+            uploadFile(signedRequest, value, fileType)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
       }
       else {
         this.setState({ [name]: event.target.value });

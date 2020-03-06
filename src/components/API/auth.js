@@ -116,3 +116,34 @@ export const createProduct = (idToken,  product) => {
         console.log(error);
     })
 };
+
+export const getUploadLink = (idToken, angle, fileName, fileType, name) => {
+    const data = {
+        angle: angle,
+        fileName: fileName, 
+        fileType: fileType,
+        name: name
+    }
+    return axios.post(`${API}/s3/fetch-link`, data, {
+        headers: {
+            "Content-Type": 'application/json',
+            "id-token": `${idToken}`
+        }
+    }).then(response => {
+        return response.data;
+    })
+    .catch(error => {
+        console.log(error);
+    })
+}
+
+export const uploadFile = (signedRequest, file, fileType) => {
+    return axios.put(signedRequest, file, {
+        headers: {
+            'Content-Type': fileType
+          }
+    }).then(res => {
+        console.log(res);
+        return res.data;
+    }).catch(err => console.log(err));
+}
