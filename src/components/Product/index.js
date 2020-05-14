@@ -31,9 +31,6 @@ const Product = (props) => {
     const [selectedSizeOrders, setSelectedSizeOrders] = useState([]);
     const [selectedSizeBids, setSelectedSizeBids] = useState([]); 
 
-
-    console.log(selected);
-
     const [firstFlag, setFirstFlag] = useState(true);
 
     const pullWindowUp = () => {
@@ -48,6 +45,7 @@ const Product = (props) => {
     }
 
     const loadSingleProduct = productId => {
+        console.log("yo");
         read(productId).then(data => {
             if(data.error){
                 setError(data.error);
@@ -96,6 +94,11 @@ const Product = (props) => {
         if (productId){
             loadSingleProduct(productId);
         }
+        setSizeInfo();
+      },[selectedSize])
+
+    console.log(orders, bids, selectedSize, selectedSizeBids, selectedSizeOrders);
+    const setSizeInfo = (bid = 0, ask = 0) => {
         var lowAsk = 10000000000000000000000000000000000000
         var highBid = 0
         // if(bids.length > 0){
@@ -124,16 +127,20 @@ const Product = (props) => {
         }
         setSelectedSizeOrders(sorders);
         setSelectedSizeBids(sbids);
-        setHighBidPrice(highBid);
+        if(highBid > bid){
+            setHighBidPrice(highBid);
+        }
+        else{
+            setHighBidPrice(bid);
+        }
         if(lowAsk !== 10000000000000000000000000000000000000){
             setLowAskPrice(lowAsk);
         }
         else{
             setLowAskPrice(0);
         }
-      },[selectedSize])
+    }
 
-    // console.log(product, orders, bids, selectedSize, selectedSizeBids, selectedSizeOrders);
 
     const showProductImage = (product) => {
         if(product._id !== undefined){
@@ -233,7 +240,8 @@ const Product = (props) => {
                         bids={bids}
                         selectedSizeOrders={selectedSizeOrders}
                         selectedSizeBids={selectedSizeBids}
-                        updateData={loadSingleProduct}/>
+                        updateData={loadSingleProduct}
+                        updateSizeData = {setSizeInfo}/>
                     <SellNewComponent 
                         product={product} 
                         authUser={authUser} 
@@ -242,7 +250,8 @@ const Product = (props) => {
                         bids={bids}
                         selectedSizeOrders={selectedSizeOrders}
                         selectedSizeBids={selectedSizeBids}
-                        updateData={loadSingleProduct}/>
+                        updateData={loadSingleProduct}
+                        updateSizeData = {setSizeInfo}/>
                     </>
                 )}
             </AuthUserContext.Consumer>
@@ -297,7 +306,8 @@ const Product = (props) => {
                                 url={photoURL} 
                                 product={product}
                                 data={i}
-                                handleSelected={handleSelected}/>
+                                handleSelected={handleSelected}
+                                selected={selected}/>
                         ))}
                     </div>
                     {showProductImage(product)}
@@ -340,8 +350,13 @@ const Selector = (props) => {
     const handleClick = () => {
         props.handleSelected(props.url);
     }
+
+    const resetImage = () => {
+        props.handleSelected(props.selected);
+    }
+
     return (
-        <div className="product-photos-selector-photo" onClick={handleClick}>
+        <div className="product-photos-selector-photo" onClick={handleClick} onMouseOver={handleClick} onMouseLeave={resetImage}>
             {showSelectorImage(props.url, props.product)}
         </div>
     )

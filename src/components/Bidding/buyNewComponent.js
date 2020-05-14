@@ -22,6 +22,7 @@ const BuyNewComponent = (props) => {
         placeBid(authUser.idToken, bidData, product._id)
         .then(data => {
             props.updateData(product._id);
+            props.updateSizeData(bid);
         })
         .catch(error => console.log(error));
     }

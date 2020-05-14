@@ -29,7 +29,9 @@ const SellNewComponent = (props) => {
         };
         createSell(authUser, product._id, form_data)
         .then(data => {
+            console.log(data);
             props.updateData(product._id);
+            props.updateSizeData();
         })
         .catch(error => console.log(error));
     }

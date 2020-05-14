@@ -13,7 +13,7 @@
 .DS_Store
 
 # env
-.env
+# .env
 .env.development
 .env.production
 .env.local
